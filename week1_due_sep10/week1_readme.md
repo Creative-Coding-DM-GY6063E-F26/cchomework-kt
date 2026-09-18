@@ -10,6 +10,7 @@ Programming Computers, The browser and javascript, setting up an IDE, Git and Gi
 
 ## Assignment
 Assignment 1: Setting up your environment (Due Sep 10)
+<<<<<<< HEAD
 
 https://github.com/d3/d3
 Language: JavaScript 
@@ -26,3 +27,5 @@ Found this repo that fits the definition of creative coding. It represents tradi
 https://github.com/EaminC/Cyber-Jellyfish
 Language: Python
 Found this repo that fits the definition of creative coding. Unlike the previous repositories (which are massive frameworks and libraries), this project is a direct application of creative coding principles. It uses code not to solve a utilitarian software problem, but to generate an organic, geometric cyber jellyfish.
+=======
+>>>>>>> gh-site
