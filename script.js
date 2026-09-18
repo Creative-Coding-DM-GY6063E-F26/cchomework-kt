@@ -7,7 +7,7 @@ const quotes = [
   { text: "writing a poem", source: "Hunter" },//https://guidebook.hdyar.com/creative-coding/creative-coding-fundamentals/what-is-creative-coding/#top
   { text: "digital clay", source: "John" },//https://dl.acm.org/doi/abs/10.5555/553360 & https://www.flong.com/archive/texts/essays/essay_creative_code/index.html
   //Maeda argues that treating a computer like a digital canvas or paintbrush is too limiting. Instead, code is an autonomous artistic environment.
-    //Just as a sculptor must understand the properties of marble or clay, a digital artist must understand the nature of code, logic, data input, and processing constraints to truly create
+  //Just as a sculptor must understand the properties of marble or clay, a digital artist must understand the nature of code, logic, data input, and processing constraints to truly create
   { text: "making art with code", source: "Art + Code" },//https://processing.github.io/art-plus-code/codeAsCreativeMedium-intro/
   { text: "a School of Thought“ ", source: "Tim" },//https://trcc.timrodenbroeker.de/what-is-creative-coding/
   { text: "a chance for code to be wrong", source: "Sara" } //I personally like this one and found it quite inspiring because it is a reminder that mistakes are part of the process. So I am keeping this one in the array.
