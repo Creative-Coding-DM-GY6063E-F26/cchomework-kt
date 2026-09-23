@@ -6,6 +6,8 @@ function setup() {
 function draw() {
     background('#DAC7AF');
 
+    angleMode(DEGREES);
+
 //Layer 1
     //Pink quadrilateral
     stroke(0,0,0,0)
@@ -127,7 +129,7 @@ function draw() {
     //Maroon
     fill(150,50,50)
     push();
-    rotate(-15/180)
+    rotate(-5)
     rect(135, 160, 20, 12, 20);
     pop()
 
@@ -158,12 +160,77 @@ function draw() {
     point(245,255)
     point(247,119)
     point(340,195)
-    point(257,352)
     point(367,100)
     point(395,26)
+    point(257,352)//Paint this again later as it has been covered
 
     strokeWeight(4)
     stroke('gold')
     line(43,210,0,230)
     line(43,238,0,215)
+    push()
+    fill('gold')
+    strokeWeight(0)
+    rotate(40)
+    // x, y, width, height, start angle, stop angle, mode
+    let arcX=380
+    let arcY =110
+    arc(arcX, arcY, 360, 30, 180, 360, CHORD);
+    quad(arcX-180,arcY,
+        arcX-140,arcY+50,
+        arcX+140,arcY+50,
+        arcX+180,arcY,)
+    strokeWeight(0)
+    fill('#DAC7AF')//background color covering up
+    arc(arcX, arcY+51, 280, 30, 180, 360, CHORD);
+    pop()
+
+    stroke('#00308F')
+    strokeWeight(15)
+    point(257,352)
+
+    //Dandelion
+    stroke('#FAD6A5');
+    let danX = 285; // Bottom
+    let danY = 130;
+
+    let lX; 
+    let lY; 
+
+    for (let j = 0; j <= 5; j++) {
+        strokeWeight(10);
+        for (let i = 0; i <= 8; i++) {
+            // i === 4 is the 5th point (0, 1, 2, 3, 4)
+            // i!==4 is to ensure that other points being drawn
+            // j === 5 is the top row (the last loop iteration)
+            if (i !== 4 || j === 5) {
+                point(danX + i * 16, danY);
+            }
+            if (i===4&&j===5){
+                lX=danX+i*16;
+                lY = danY;
+            }
+            danY = danY - 1.8;
+        }
+        
+        strokeWeight(2);
+        // Draws the slanted underline
+        line(danX, danY + 1.8 * 9, danX + 18 * 8, danY);
+    }
+    line(lX,lY,
+        lX-5,danY+140
+    )
+    line(lX+3,danY+200,
+    lX-5,danY+140
+    )
+
+    //Yellow sticker
+    strokeWeight(15)
+    stroke('gold')
+    line(lX+8,danY+141,
+    lX-5,danY+140
+    )
+    line(lX-10,danY+143,
+    lX-5,danY+140
+    )
 }
