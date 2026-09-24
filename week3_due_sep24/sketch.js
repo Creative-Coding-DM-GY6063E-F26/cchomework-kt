@@ -233,4 +233,72 @@ function draw() {
     line(lX-10,danY+143,
     lX-5,danY+140
     )
+
+    //Black star - Line by line may be approachable but failed for now...
+    //stroke('black')
+    //strokeWeight(1)
+    //let starX = 300
+    //let starY =300
+    //let starW = 3
+    //let starH = 3
+    //for(let i =1;i<=5; i++){
+    //line(starX-starW*i*2,starY+(i-1)*starH,
+    //    starX+starW*i*2,starY+(i-1)*starH)
+    //}
+    //starY = starY +4*starH
+    //for(let i =1;i<=5; i++){
+    //    line(starX-starW*i*2,starY-(i-1)*starH,
+    //        starX+starW*i*2,starY-(i-1)*starH)
+    //}
+
+    stroke('black')
+    strokeWeight(0.5)
+    drawScanlineStar(345, 350, 30, 12, 4);
+    drawScanlineStar(350, 350, 30, 12, 4);
+    strokeWeight(1)
+    drawScanlineStar(355, 350, 30, 12, 4);
+
+}
+function drawScanlineStar(cx, cy, outerR, innerR, stepSize) {
+  let vertices = [];
+  
+  // 1. Build the invisible skeleton (10 points for a 5-pointed star)
+  for (let i = 0; i < 10; i++) {
+    let angle = i * 36;
+    let r = i % 2 === 0 ? outerR : innerR; 
+    
+    let vx = cx + cos(angle - 90) * r;
+    let vy = cy + sin(angle - 90) * r;
+    vertices.push({ x: vx, y: vy });
+  }
+
+  // 2. Determine the exact top and bottom of this specific star
+  let topY = cy - outerR;
+  let bottomY = cy + outerR;
+  
+  // 3. Scan down the canvas line by line
+  for (let y = topY; y <= bottomY; y += stepSize) {
+    let intersects = [];
+
+    // 4. Check this horizontal line against all 10 edges of the star
+    for (let i = 0; i < vertices.length; i++) {
+      let p1 = vertices[i];
+      let p2 = vertices[(i + 1) % vertices.length];
+
+      if ((p1.y <= y && p2.y > y) || (p2.y <= y && p1.y > y)) {
+        let intersectX = p1.x + (y - p1.y) * (p2.x - p1.x) / (p2.y - p1.y);
+        intersects.push(intersectX);
+      }
+    }
+
+    // 5. Sort intersections left to right
+    intersects.sort((a, b) => a - b);
+
+    // 6. Draw lines between pairs of intersections
+    for (let i = 0; i < intersects.length; i += 2) {
+      if (intersects[i + 1] !== undefined) {
+        line(intersects[i], y, intersects[i + 1], y);
+      }
+    }
+  }
 }
