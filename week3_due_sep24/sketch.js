@@ -262,39 +262,41 @@ function draw() {
 function drawScanlineStar(cx, cy, outerR, innerR, stepSize) {
   let vertices = [];
   
-  // 1. Build the invisible skeleton (10 points for a 5-pointed star)
+  // Build the invisible skeleton (10 points for a 5-pointed star)
   for (let i = 0; i < 10; i++) {
-    let angle = i * 36;
-    let r = i % 2 === 0 ? outerR : innerR; 
-    
+    let angle = i * 36;//360/10=36
+    let r = i % 2 === 0 ? outerR : innerR; //Checks if the current step i is an even number. 
+    //If it is even, it uses the large outerR (for a pointy tip). If it is odd, it uses the smaller innerR (for an inner corner).
     let vx = cx + cos(angle - 90) * r;
     let vy = cy + sin(angle - 90) * r;
+    //cos for horizontal, sin for vertical
     vertices.push({ x: vx, y: vy });
+    //Saves the X and Y coordinates into the vertices list
   }
 
-  // 2. Determine the exact top and bottom of this specific star
+  // Determine the exact top and bottom of this specific star
   let topY = cy - outerR;
   let bottomY = cy + outerR;
   
-  // 3. Scan down the canvas line by line
+  // Scan down the canvas line by line starting at topY, stops at bottomY, and moves down the canvas by stepSize pixels every loop.
   for (let y = topY; y <= bottomY; y += stepSize) {
     let intersects = [];
 
-    // 4. Check this horizontal line against all 10 edges of the star
+    // Check this horizontal line against all 10 edges of the star
     for (let i = 0; i < vertices.length; i++) {
       let p1 = vertices[i];
       let p2 = vertices[(i + 1) % vertices.length];
 
-      if ((p1.y <= y && p2.y > y) || (p2.y <= y && p1.y > y)) {
+      if ((p1.y <= y && p2.y > y) || (p2.y <= y && p1.y > y)) {//Checks if the current slanted edge crosses the current height (y) of our scanner.
         let intersectX = p1.x + (y - p1.y) * (p2.x - p1.x) / (p2.y - p1.y);
-        intersects.push(intersectX);
+        intersects.push(intersectX);//Calculates the exact horizontal pixel coordinate (intersectX) where the scanner touches the edge
       }
     }
 
-    // 5. Sort intersections left to right
+    // Sort intersections left to right, from smallest to largest
     intersects.sort((a, b) => a - b);
 
-    // 6. Draw lines between pairs of intersections
+    // Draw lines between pairs of intersections
     for (let i = 0; i < intersects.length; i += 2) {
       if (intersects[i + 1] !== undefined) {
         line(intersects[i], y, intersects[i + 1], y);
